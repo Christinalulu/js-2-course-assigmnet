@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.disappear{
+    animation: vanish 1s forwards;
+}
+@keyframes vanish{
+    100%{
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
