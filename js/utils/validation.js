@@ -18,4 +18,4 @@ function validatePasswords(formPassword, formConfirmPassword) {
     }
 }
 
-export {validateEmailFrom, validatePasswords }
+export {validateEmailFrom, validatePasswords}

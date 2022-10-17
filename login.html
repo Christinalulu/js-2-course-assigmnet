@@ -9,6 +9,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
     <script type="module" src="/js/main.js" defer></script>
+    <script type="module" src="/js/login.js" defer></script>
     <title>Chat & Connect</title>
   </head>
   <body>
@@ -50,7 +51,7 @@
               </h2>
             </div>
 
-            <form action="#" class="mt-8 grid grid-cols-6 gap-6">
+            <form id="loginFrom" class="mt-8 grid grid-cols-6 gap-6">
               <!-- Email -->
               <div class="col-span-6 sm:col-span-3">
                 <label
@@ -64,9 +65,9 @@
                   type="email"
                   id="email"
                   name="email"
-                  class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm outline-none text-gray-700 shadow-md"
+                  class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm outline-none text-gray-700 shadow-md"
                 />
-                <span id="email_error" class="text-sm text-red-500">
+                <span id="email_error" class=" hidden text-sm text-red-500">
                   Email must be a valid (@stud.noroff.no or @noroff.no)
                 </span>
               </div>
@@ -74,25 +75,24 @@
               <!-- Password -->
               <div class="col-span-6 sm:col-span-3">
                 <label
-                  for="Password"
-                  class="block text-sm font-medium text-gray-700"
-                >
+                  for="password"
+                  class="block text-sm font-medium text-gray-700">
                   Password
                 </label>
 
                 <input
                   type="password"
-                  id="Password"
+                  id="password"
                   name="password"
-                  class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm outline-none text-gray-700 shadow-md"
+                  class="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm outline-none text-gray-700 shadow-md"
                 />
-                <span id="password_error" class="text-sm text-red-500">
+                <span id="password_error" class="text-sm hidden text-red-500">
                   Password must be 8 character
                 </span>
               </div>
 
               <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                <button
+                <button type="submit"
                   class="inline-block shrink-0 rounded-md border border-orange-500 bg-orange-500 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-orange-600 focus:outline-none focus:ring active:text-blue-500"
                 >
                   Log in
@@ -103,14 +103,15 @@
                   <a
                     href="/signup.html"
                     class="text-gray-700 underline hover:text-orange-300"
-                    >Sign up</a
-                  >.
+                    >Sign up</a>
                 </p>
               </div>
             </form>
+            <p id="general-error-message" class="capitalize m-2 text-3xl text-red-900"></p>
           </div>
         </main>
       </div>
     </section>
+
   </body>
 </html>
