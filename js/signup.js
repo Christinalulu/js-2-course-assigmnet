@@ -80,11 +80,14 @@ signUpFrom.addEventListener("submit", function(event){
                     body: JSON.stringify(signUpData)
                 });
                 const data = await response.json();
+
                 if (response.ok) {
                     console.log("POST REQUEST SUCCEEDED!!  🥳 🤗🤗");
+                    location.href ="index.html";
                 } else {
                     generalErrorMessage.innerHTML = `Sorry !! ${data.message}`
                 }
+
 
             }catch(e){
                 console.log(e);
