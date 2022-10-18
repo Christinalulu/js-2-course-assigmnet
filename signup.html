@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <script type="module" src="/js/main.js" defer></script>
   <script type="module" src="/js/signup.js" defer></script>
-
   <title>Chat & Connect</title>
 </head>
 <body>
@@ -20,15 +19,10 @@
           alt="Social media"
           src="/asset/img/bg-image.jpg"
           class="absolute inset-0 h-full w-full object-cover opacity-80"/>
-
         <div class=" hidden lg:relative lg:block lg:p-12">
-
-          <!-- TODO -->
-          <!-- Change the to in span in Js to Back in login -->
           <h1 class="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
             Welcome to Chat & Connect
           </h1>
-
           <p class="mt-4 leading-relaxed text-white/90">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam
             dolorum aliquam, quibusdam aperiam voluptatum.
@@ -47,11 +41,8 @@
           </h1>
           <h2 class="text-2xl lg:text-4xl mt-2 font-bold text-gray-700">Sign up</h2>
           </div>
-  
           <form
           id="signup_form" class="mt-8 grid grid-cols-6 gap-6">
-
-            <!-- username -->
             <div class="col-span-6 sm:col-span-3">
               <label
                 for="username"
@@ -70,8 +61,6 @@
                 Please enter a Username
               </span>
             </div>
-
-            <!-- Email -->
             <div class="col-span-6 sm:col-span-3">
               <label for="email" class="block text-sm font-medium text-gray-700">
                 Email
@@ -88,8 +77,6 @@
                 Email must be a valid (@stud.noroff.no or @noroff.no)
             </span>
             </div>
-
-             <!-- Password -->
             <div class="col-span-6 sm:col-span-3">
               <label
                 for="password"
@@ -108,8 +95,6 @@
             Password must be 8 character
             </span>
             </div>
-
-            <!-- Confirm Password -->
             <div class="col-span-6 sm:col-span-3">
               <label
                 for="confirm_password"
@@ -136,13 +121,11 @@
               >
                 Create an account
               </button>
-
               <p class="mt-4 text-sm text-gray-500 sm:mt-0">
                 Already have an account?
                 <a href="/login.html" class="text-gray-700 underline hover:text-orange-300">Log in</a>.
               </p>
             </div>
-
           </form>
           <p id="general-error-message" class="capitalize m-2 text-3xl text-red-900"></p>
         </div>

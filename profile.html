@@ -9,17 +9,14 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
     />
     <script type="module" src="/js/main.js" defer></script>
-   
-    
+    <script type="module" src="/js/profile.js" defer></script>
     <title>Chat & Connect</title>
   </head>
   <body>
-    <!-- header -->
     <header class="shadow-sm bg-orange-50">
       <div
         class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4"
       >
-        <!-- Profile -->
         <div class="flex w-0 flex-1 lg:hidden">
           <button
             class="rounded-full bg-orange-400 p-2 text-white"
@@ -86,58 +83,10 @@
         </nav>
       </div>
     </header>
-
-     <!-- Creating post from -->
-     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-lg text-center">
-        <h1 class="text-2xl font-bold sm:text-3xl">Create New Post</h1>
-      </div>
-      <form id="create_form" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
-        <div>
-          <div class="relative">
-            <label for="titel" class="text-sm">Post Title</label>
-            <input
-            id="post_title"
-            name="postTitle"
-              type="text"
-              class="w-full rounded-lg outline-none border-gray-200 p-4 pr-12 text-sm shadow-lg"
-              
-            />
-            <span
-                    id="post_title_error"
-                    class="hidden text-sm text-red-500"
-            >
-                Post Title is required
-                </span>
-          </div>
-        </div>
+    <!-- Profile -->
     
-        <div>
-          <label for="dexcription" class="text-sm">Description</label>
-          <div class="relative">
-            <textarea name="postDescription" id="post_description" rows="3" class="block outline-none w-full resize-none border-0 placeholder-gray-400 focus:ring-0 sm:text-sm p-2 rounded-md shadow-lg"></textarea>
-           
-          </div>
-          <span
-          id="post_description_error"
-          class="hidden text-sm text-red-500">
-         Post Description is required
-         </span>
-         
-        </div>
-        <div class="flex items-center justify-between">
-          <button
-            type="submit"
-            class="ml-3 rounded-lg bg-orange-500 px-5 py-3 text-sm font-medium text-white"
-          >
-            Publish
-          </button>
-        </div>
-        <p id="general-error-message" class="capitalize m-2 text-3xl text-red-900"></p>
-      </form>
-      <p id="general-message-error" class="capitalize m-2 text-3xl text-red-900"></p>
 
-    </div>
+
 
     <!--  cards -->
     <section class="text-gray-600 body-font">
