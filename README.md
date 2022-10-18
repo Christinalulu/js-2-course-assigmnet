@@ -83,3 +83,9 @@ Content posted on the API is public and associated with your identity. Be approp
 Resources
 API Guide
 API Documentation.
+###Links
+https://noroff-api-docs.netlify.app/
+API Guid
+https://noroff-api-docs.netlify.app/social-endpoints/authentication
+Documentation
+https://nf-api.onrender.com/docs/static/index.html
