@@ -1,98 +1,83 @@
-import {URL_LOGIN} from "./settings/api";
-import { validateEmailFrom } from "./utils/validation";
-import {saveToken, saveUser} from "./utils/local_storage";
+import{validateEmail } from "./utils/validation"
+import{LOGIN_USER_END} from "./settings/api";
+import{saveUser, saveToken} from "./utils/storage";
 
-const logInFrom = document.querySelector("#loginFrom");
-const loginEmail = document.querySelector("#email");
-const loginEmailError = document.querySelector("#email_error");
-const loginPassword = document.querySelector("#password");
-const loginPasswordError = document.querySelector("#password_error");
-const generalErrorMessage = document.querySelector("#general-message-error");
+const logInFrom = document.querySelector("#login-form");
+const email = document.querySelector("#email");
+const emailError = document.querySelector("#email_error");
+const password = document.querySelector("#password");
+const passwordError = document.querySelector("#password_error");
+const generalMessageErr = document.querySelector("#general-error-message")
 
-
-if(logInFrom) {
-    logInFrom.addEventListener("submit", function (event){
+if(logInFrom){
+    logInFrom.addEventListener("submit", function(event){
         event.preventDefault();
 
-       let isLogInEmail = false;
-       if(loginEmail.value.trim().length > 0){
-        loginEmailError.classList.add("hidden");
-        isLogInEmail = true;
-       }else{
-        loginEmailError.classList.remove("hidden");
-       }
-
-       let isValidEmail = false;
-     if(loginEmail.value.trim().length && validateEmailFrom(loginEmail.value) === true){
-        loginEmailError.classList.add("hidden");
-        isValidEmail = true;
-    }else if (loginEmail.value.trim().length && validateEmailFrom(loginEmail.value) !== true){
-        loginEmailError.classList.remove("hidden");
-    }
-    let isFromPassword = false;
-    if(loginPassword.value.trim().length >= 8){
-        loginPasswordError.classList.add("hidden");
-        isFromPassword = true;
-    }else{
-        loginPasswordError.classList.remove("hidden");
-    }
-
-    let isLoginFromValid = isLogInEmail && isValidEmail && isFromPassword;
-
-    if (isLoginFromValid){
-        console.log("Validation SUCCEEDED!!")
-        const userData = {
-            "email": loginEmail.value,
-            "password": loginPassword.value
-        }
-       (async function logInUser(){
-        const response = await fetch(URL_LOGIN,{
-            method:"POST",
-            headers :{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userData)
-        });
-        console.log(response);
-        console.log("data" ,data);
-
-        if(response.ok){
-            const data = await response.json();
-            saveToken(data.accessToken);
-            const userToSave ={
-                name: data.name,
-                email: data.email
-            }
-            saveUser(userToSave);
-            location.href ="index.html";
+        let isEmail = false;
+        if(email.value.trim().length > 0){
+            emailError.classList.add("hidden");
+            isEmail =true;
 
         }else{
-            const err = await response.json();
-            throw new Error(err.message);
+            emailError.classList.remove("hidden");
         }
-       
-       })().catch(err =>{
-        console.log(err)
-        generalErrorMessage.innerHTML `Sorry ${err.message}`
+        let isPassword = false;
 
-       })
-      
+        if (password.value.trim().length >= 8) {
+            passwordError.classList.add("hidden");
+            isPassword = true;
+        } else {
+            passwordError.classList.remove("hidden");
+        }
+        let isValidateEmail = false;
+        if(email.value.trim().length && validateEmail(email.value)=== true) {
+            emailError.classList.add("hidden")
+         isValidateEmail = true
+        }else if(email.value.trim().length){
+            emailError.classList.remove("hidden")
+        }
 
-      
+        let isLoginFromValid = isEmail && isPassword && isValidateEmail;
 
-        
-    }else {
-        console.log("Validation FAILED");
-    }
-    });
+        if(isLoginFromValid){
+            const userData = {
+                "email": email.value,
+                "password": password.value
+            }
+            const LOGIN = LOGIN_USER_END;
+            (async function logInUser(){
+                const response = await fetch(LOGIN,{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(userData)
+                });
+                if(response.ok){
+                    const data = await response.json();
+                    saveToken(data.accessToken);
+                    const userToSave = {
+                        name: data.name,
+                        email: data.email
+                    }
+                    saveUser(userToSave);
+                    location.href = "/index.html"
+
+                }else{
+                    console.log("POST REQUEST LOGIN FAILED")
+                    const err = await response.json();
+                    const message = `An error occurred: ${err.message}`;
+                    throw new Error(message);
+
+                }
+
+            })()
+            .catch(err =>{
+                console.log(err);
+                generalMessageErr.innerHtml = `Sorry ${err.message}`
+            });
+        }else {
+            console.log("Validation Failed!")
+        }
+    })
 }
-
-
-
-
-    
-              
-
-
-
-

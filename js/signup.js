@@ -1,104 +1,143 @@
-import {URL_SIGNUP} from "./settings/api";
-import { validateEmailFrom, validatePasswords  } from "./utils/validation";
-
-const signUpFrom = document.querySelector("#signup_form");
-
-const username = document.querySelector("#username");
-const usernameError = document.querySelector("#username_error");
-
-const fromEmail = document.querySelector("#email");
-const fromEmailError = document.querySelector("#email_error");
-
-const formPassword = document.querySelector("#password");
-const formPasswordError = document.querySelector("#password_error");
-const formConfirmPassword = document.querySelector("#confirm_password");
-const formConfirmPasswordError = document.querySelector("#confirm_password-error");
-
-const generalErrorMessage = document.querySelector("#general-error-message");
+import{REG_USER_END} from "./settings/api";
+import{validateEmail,validatePassword } from "./utils/validation"
 
 
+const contactFrom = document.querySelector("#signup_form");
+// Username
+const userName = document.querySelector("#user-name");
+const userNameErr = document.querySelector("#user-name-error");
+// Email
+const email = document.querySelector("#email");
+const emailErr = document.querySelector("#email_err");
+// Password
+const password = document.querySelector("#password");
+const passwordErr = document.querySelector("#password_err");
+// Password confirm
+const confirmPassword = document.querySelector("#confirm_password");
+const confirmPasswordErr  = document.querySelector("#confirm_password-err");
+const confirmPasswordMatch  = document.querySelector("#confirm_password-match");
+// General Message
+const generalMessageErr = document.querySelector("#general-error-message")
 
-signUpFrom.addEventListener("submit", function(event){
-     event.preventDefault();
 
-      let isFromUsername = false;
-      if(username.value.trim().length > 0) {
-        usernameError.classList.add("hidden");
-        isFromUsername = true;
-     }else{
-        usernameError.classList.remove("hidden");
-     }
-
-     let isEmail = false;
-     if(fromEmail.value.trim().length > 0){
-        fromEmailError.classList.add("hidden");
-        isEmail = true;
-     }else{
-        fromEmailError.classList.remove("hidden");
-     }
-
-     let isValidEmail = false;
-     if(fromEmail.value.trim().length && validateEmailFrom(fromEmail.value) === true){
-        fromEmailError.classList.add("hidden");
-        isValidEmail = true;
-    }else if (fromEmail.value.trim().length && validateEmailFrom(fromEmail.value) !== true){
-        fromEmailError.classList.remove("hidden");
+contactFrom.addEventListener("submit", function(event){
+  event.preventDefault();
+  // userName
+    let isUserName = false;
+    if(userName.value.trim().length > 0) {
+        userNameErr.classList.add("hidden");
+        isUserName = true;
+   }else{
+    userNameErr.classList.remove("hidden");
+   }
+   // Email
+   let isEmail = false;
+   if(email.value.trim().length > 0){
+    emailErr.classList.add("hidden");
+    isEmail = true;
+   }else{
+    emailErr.classList.remove("hidden");
+   }
+      let isValidateEmail = false;
+   if(email.value.trim().length && validateEmail(email.value)=== true) {
+    emailErr.classList.add("hidden")
+    isValidateEmail = true
+   }else if(email.value.trim().length){
+    emailErr.classList.remove("hidden")
+   }
+     // PASSWORD  
+  let isPassword = false;
+  if(password.value.trim().length >= 8){
+    passwordErr.classList.add("hidden")
+    isPassword = true;
+  } else{
+    passwordErr.classList.remove("hidden");
+  }
+  // Is Confirm password
+  let isPasswordConfirm = false;
+  if(confirmPassword.value.trim().length >= 8){
+    confirmPasswordErr.classList.add("hidden")
+    isPasswordConfirm = true;
+  }else{
+    confirmPasswordErr.classList.remove("hidden");
+  }
+  // Password matching
+    let isValidPasswordMatch = false;
+  isValidPasswordMatch = validatePassword(password.value, confirmPassword.value); // true // false
+    if (isValidPasswordMatch) {
+        confirmPasswordMatch.classList.add("hidden");
+        isValidPasswordMatch = true
+    } else {
+        confirmPasswordMatch.classList.remove("hidden");
     }
 
-    let isFromPassword = false;
-    if(formPassword.value.trim().length >= 8){
-        formPasswordError.classList.add("hidden");
-        isFromPassword = true;
-    }else{
-        formPasswordError.classList.remove("hidden");
-    }
+    // console.log("userName",isUserName);
+    // console.log("email",isEmail);
+    // console.log("valid Email",isValidateEmail);
+    // console.log("password",isPassword);
+    // console.log("Confirm password",isPasswordConfirm);
+    // console.log("Valid Matching password",isValidPasswordMatch);
 
-    let isConfirmPasswordMatch = false;
-    isConfirmPasswordMatch = validatePasswords(formPassword.value, formConfirmPassword.value );
-    if(isConfirmPasswordMatch){
-        formConfirmPasswordError.classList.add("hidden")
-    }else{
-        formConfirmPasswordError.classList.remove("hidden");
+      let isValidFrom = isUserName 
+  && isEmail 
+  && isValidateEmail
+  && isPassword 
+  && isPasswordConfirm 
+  && isValidPasswordMatch;
+
+  
+   if(isValidFrom){
+    console.log("Validation Succeed");
+    const userData = {
+        "name": userName.value,
+        "email": email.value,
+        "password": password.value
     }
-    
-    
-    let isFromValid = isFromUsername && isEmail && isValidEmail && isFromPassword && isConfirmPasswordMatch;
-    if(isFromValid){
-        const signUpData = {
-            "name": username.value,
-            "email": fromEmail.value,
-            "password": formPassword.value
+   
+    // console.log(USER_REG_URL_API_END);
+    //  const USER_REG_URL_API_END = REG_USER_END;
+     const USER_REG_URL_API_END = "https://nf-api.onrender.com/api/v1/social/auth/register";
+     // API Call
+
+     (async function SignUpUser(){
+      try{
+        const response = await fetch(USER_REG_URL_API_END, {
+              method: 'POST',
+               header:{
+                "Content-Type": "application/json"
+          },
+          body : JSON.stringify(userData)
+        });
+        console.log("API",response);
+
+        const data = await response.json();
+      console.log(data);
+
+        if(response.ok){
+          location.replace("/index.html")
+        }else{
+          generalMessageErr.innerHTML = `Sorry ${response.status}`
         }
-        const REG_USER_END = URL_SIGNUP;
-        (async function signUpUser() {
-            try{
-                const response = await fetch(REG_USER_END, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(signUpData)
-                });
-                const data = await response.json();
+        
+      }catch(err){
+        console.log(err);
+        console.log("Failed API Call");
 
-                if (response.ok) {
-                    console.log("POST REQUEST SUCCEEDED!!  🥳 🤗🤗");
-                    location.href ="index.html";
-                } else {
-                    generalErrorMessage.innerHTML = `Sorry !! ${data.message}`
-                }
+      }
+
+     })();
+
+   }else{
+    console.log("Failed Validation")
+   }
+
+});
 
 
-            }catch(e){
-                console.log(e);
-            }
-        })();
-    }
-    else{
-        console.log("VALIDATION FAILED");
-    }
-}); 
-              
+
+ 
+
+
 
 
 

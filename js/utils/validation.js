@@ -1,21 +1,25 @@
-function validateEmailFrom(fromEmail) {
+function validateEmail(email) {
     const regEx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(stud.noroff.no|noroff.no)$/;
-    return fromEmail.match(regEx) ? true : false;
+    if (email.match(regEx)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
+function validatePassword(password, confirmPassword ){
 
-function validatePasswords(formPassword, formConfirmPassword) {
-    if (!formPassword ) {
+    if (!password) {
         return false;
     }
-    if (!formConfirmPassword ) {
+    if (!confirmPassword) {
         return false;
     }
-    if (formPassword !== formConfirmPassword  ) {
+    if (password !== confirmPassword) {
         return false;
     } else {
         return true;
     }
 }
+export{validateEmail, validatePassword}
 
-export {validateEmailFrom, validatePasswords}
