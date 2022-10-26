@@ -4,7 +4,7 @@ import{validateEmail,validatePassword } from "./utils/validation"
 
 const contactFrom = document.querySelector("#signup_form");
 // Username
-const userName = document.querySelector("#user-name");
+const userName = document.querySelector("#username");
 const userNameErr = document.querySelector("#user-name-error");
 // Email
 const email = document.querySelector("#email");
@@ -53,6 +53,7 @@ contactFrom.addEventListener("submit", function(event){
   } else{
     passwordErr.classList.remove("hidden");
   }
+
   // Is Confirm password
   let isPasswordConfirm = false;
   if(confirmPassword.value.trim().length >= 8){
@@ -78,7 +79,7 @@ contactFrom.addEventListener("submit", function(event){
     // console.log("Confirm password",isPasswordConfirm);
     // console.log("Valid Matching password",isValidPasswordMatch);
 
-      let isValidFrom = isUserName 
+   let isValidFrom = isUserName 
   && isEmail 
   && isValidateEmail
   && isPassword 
