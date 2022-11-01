@@ -1,83 +1,103 @@
-import{validateEmail } from "./utils/validation"
-import{LOGIN_USER_END} from "./settings/api";
-import{saveUser, saveToken} from "./utils/storage";
+console.log("helllloooo SIGNUP");
 
-const logInFrom = document.querySelector("#login-form");
-const email = document.querySelector("#email");
-const emailError = document.querySelector("#email_error");
-const password = document.querySelector("#password");
-const passwordError = document.querySelector("#password_error");
-const generalMessageErr = document.querySelector("#general-error-message")
+import { validateEmail } from "./utils/validation";
+import { LOGIN_URL } from "./setting/api";
+import { saveToken ,saveUser } from "./utils/storage";
 
-if(logInFrom){
-    logInFrom.addEventListener("submit", function(event){
+const loginContent = document.querySelector("#login-form")
+const email = document.querySelector("#email")
+const emailError = document.querySelector("#email_error")
+const emailErrorValide = document.querySelector("#email-valid")
+const password = document.querySelector("#password")
+const passwordError = document.querySelector("#password_error")
+const generalMessage = document.querySelector("#general-message-error")
+
+
+if(loginContent){
+    loginContent.addEventListener("submit", function(event){
         event.preventDefault();
 
         let isEmail = false;
-        if(email.value.trim().length > 0){
+        if (email.value.trim().length > 0) {
             emailError.classList.add("hidden");
-            isEmail =true;
-
-        }else{
+            isEmail = true;
+        } else {
             emailError.classList.remove("hidden");
         }
-        let isPassword = false;
 
+        let isValidEmail = false;
+        if (email.value.trim().length && validateEmail(email.value) === true) {
+            emailErrorValide.classList.add("hidden");
+            isValidEmail = true;
+        } else if (email.value.trim().length && validateEmail(email.value) !== true) {
+            emailErrorValide.classList.remove("hidden");
+        }
+        let isPasswordInput = false;
         if (password.value.trim().length >= 8) {
             passwordError.classList.add("hidden");
-            isPassword = true;
+            isPasswordInput = true;
         } else {
             passwordError.classList.remove("hidden");
         }
-        let isValidateEmail = false;
-        if(email.value.trim().length && validateEmail(email.value)=== true) {
-            emailError.classList.add("hidden")
-         isValidateEmail = true
-        }else if(email.value.trim().length){
-            emailError.classList.remove("hidden")
-        }
 
-        let isLoginFromValid = isEmail && isPassword && isValidateEmail;
+        let isLoginValide = isEmail && isValidEmail && isPasswordInput;
 
-        if(isLoginFromValid){
+        if(isLoginValide){
+            console.log("From Success");
             const userData = {
                 "email": email.value,
                 "password": password.value
             }
-            const LOGIN = LOGIN_USER_END;
-            (async function logInUser(){
-                const response = await fetch(LOGIN,{
+            // Calling out data
+            console.log(userData);
+           
+
+            (async function loginUser(){
+                const response = await fetch(LOGIN_URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify(userData)
                 });
+                console.log("response",response);
+               
                 if(response.ok){
                     const data = await response.json();
-                    saveToken(data.accessToken);
-                    const userToSave = {
+                    console.log("data",data);
+                    console.log("SUCCESS DATA");
+                    console.log(data.accessToken);
+                    saveToken(data.accessToken)
+                   
+
+
+                    const saveUserData = {
                         name: data.name,
                         email: data.email
                     }
-                    saveUser(userToSave);
-                    location.href = "/index.html"
+                    saveUser(saveUserData);
+                    location.href = "/welcome.html";
+
+                    
 
                 }else{
-                    console.log("POST REQUEST LOGIN FAILED")
                     const err = await response.json();
-                    const message = `An error occurred: ${err.message}`;
-                    throw new Error(message);
-
+                    console.log(err);
+                    console.log(err.errors[0].message);
+                    throw new Error(err.errors[0].message)
                 }
+              
+               
 
-            })()
-            .catch(err =>{
-                console.log(err);
-                generalMessageErr.innerHtml = `Sorry ${err.message}`
-            });
-        }else {
-            console.log("Validation Failed!")
+            })().catch(e => {
+                console.log(e); 
+                generalMessage.innerHTML = `Sorry ${e}`
+            })
+
+        }else{
+            console.log("Validation FAILED")
         }
     })
 }
+
+

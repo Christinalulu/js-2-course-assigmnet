@@ -14,6 +14,19 @@
     "vite": "^3.1.0"
   },
   "dependencies": {
+    "luxon": "^3.1.0",
     "moment": "^2.29.4"
-  }
+  },
+  "description": "To apply knowledge of JavaScript techniques to implement the front-end functionality for a social media application.",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christinalulu/js-2-course-assigmnet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Christinalulu/js-2-course-assigmnet/issues"
+  },
+  "homepage": "https://github.com/Christinalulu/js-2-course-assigmnet#readme"
 }

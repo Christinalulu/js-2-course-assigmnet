@@ -1,47 +1,54 @@
-const tokenKey = "token";
-const userKey = "user";
+const tokenKey = "token"
+const userKey = "user"
 
-const saveToken = (token) => {
-    saveToStorage(tokenKey, token);
-};
+function saveToken(token){
+    saveToLocalStorage(tokenKey, token)
+}
 
-const getToken = () => {
-    const value = localStorage.getItem(tokenKey);
-    if (value) {
-        return JSON.parse(value);
-    } else {
+// Get Token
+function getToken(){
+    return getFromLocalStorage(tokenKey)
+}
+
+function saveUser(user){
+    saveToLocalStorage(userKey, user)
+}
+function getUserName(){
+    const user = getFromLocalStorage(userKey)
+    if(userKey){
+        return user.name
+    }else{
         return null;
     }
-};
+}
 
-const saveUser = (user) => {
-    saveToStorage(userKey, user);
-};
-
-const getUserName = () => {
-    const user = getFromStorage(userKey);
-    if (userKey) {
-        return user.name;
-    } else {
+function getUserEmail(){
+    const user = getFromLocalStorage(userKey);
+    if(userKey){
+        return user.email
+    }else{
         return null;
     }
-};
+}
 
-const saveToStorage = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
-};
 
-const getFromStorage = (key) => {
+// save to local storage
+function saveToLocalStorage(key, value){
+    localStorage.setItem(key, JSON.stringify(value))
+}
+
+
+// Get data from local storage
+function getFromLocalStorage(key){
     const value = localStorage.getItem(key);
-    if (value) {
+    if(value){
         return JSON.parse(value);
-    } else {
-        return [];
+    }else{
+        return []
     }
-};
+}
 
-const clearStorage = () => {
-    localStorage.clear();
-};
 
-export {getUserName, saveToken, saveUser, getToken, clearStorage};
+
+
+export{saveToken,saveUser, getUserName,getToken,getUserEmail}
