@@ -1,14 +1,11 @@
 function validateEmail(email) {
     const regEx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(stud.noroff.no|noroff.no)$/;
-    if (email.match(regEx)) {
-        return true;
-    } else {
-        return false;
-    }
+    return email.match(regEx) ? true : false;
 }
 
-function validatePassword(password, confirmPassword ){
-
+function validatePassword(password, confirmPassword) {
+    console.log(password)
+    console.log(confirmPassword)
     if (!password) {
         return false;
     }
@@ -21,5 +18,4 @@ function validatePassword(password, confirmPassword ){
         return true;
     }
 }
-export{validateEmail, validatePassword}
-
+export{validateEmail,validatePassword};
