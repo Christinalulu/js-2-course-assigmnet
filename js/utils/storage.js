@@ -22,6 +22,15 @@ function getUserName(){
     }
 }
 
+function getUserEmail(){
+    const user = getFromLocalStorage(userKey);
+    if(userKey){
+        return user.email
+    }else{
+        return null;
+    }
+}
+
 
 // save to local storage
 function saveToLocalStorage(key, value){
@@ -42,4 +51,4 @@ function getFromLocalStorage(key){
 
 
 
-export{saveToken,saveUser, getUserName,getToken}
+export{saveToken,saveUser, getUserName,getToken,getUserEmail}
