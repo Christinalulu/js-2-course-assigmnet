@@ -9,6 +9,8 @@ export default {
                 logIn: resolve(__dirname, 'login.html'),
                 signUp: resolve(__dirname, 'signup.html'),
                 profile: resolve(__dirname, 'profile.html'),
+                detailsPost: resolve(__dirname, 'details-post.html'),
+                
                
             },
         },

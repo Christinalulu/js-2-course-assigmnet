@@ -1,9 +1,11 @@
-console.log("helllloooo SIGNUP");
+
 
 import { validateEmail } from "./utils/validation";
 import { LOGIN_URL } from "./setting/api";
 import { saveToken ,saveUser } from "./utils/storage";
+import createHeader from "./components/header";
 
+createHeader();
 const loginContent = document.querySelector("#login-form")
 const email = document.querySelector("#email")
 const emailError = document.querySelector("#email_error")
@@ -76,9 +78,7 @@ if(loginContent){
                         email: data.email
                     }
                     saveUser(saveUserData);
-                    location.href = "/welcome.html";
-
-                    
+                    location.href = "./index.html";
 
                 }else{
                     const err = await response.json();
@@ -87,8 +87,6 @@ if(loginContent){
                     throw new Error(err.errors[0].message)
                 }
               
-               
-
             })().catch(e => {
                 console.log(e); 
                 generalMessage.innerHTML = `Sorry ${e}`

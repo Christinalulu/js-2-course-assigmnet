@@ -1,6 +1,8 @@
 import { validateEmail,validatePassword } from "./utils/validation";
 import {REGISTER_URL } from "./setting/api";
+import createHeader from "./components/header";
 
+createHeader();
 const registerForm = document.querySelector("#register");
 
 const userName = document.querySelector("#username");
@@ -90,6 +92,7 @@ registerForm.addEventListener("submit", function (event) {
             "email": emailInput.value,           
             "password": password.value               
           }
+          console.log(userData);
 
           (async function signUpUser(){
             try{

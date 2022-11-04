@@ -8,7 +8,10 @@ const postTitleErr = document.querySelector("#post_title_error");
 const postDescription = document.querySelector("#post_description");
 const postDescriptionErr = document.querySelector("#post_description_error");
 const checked = document.querySelector("#ok")
-
+const accessToken = getToken();
+if(!accessToken){
+   location.href = "/login.html"
+}
 if (createPostFrom) {
    createPostFrom.addEventListener("submit", function (event) {
       event.preventDefault();
@@ -21,7 +24,6 @@ if (createPostFrom) {
          postTitleErr.classList.remove("hidden");
       }
       console.log(isPostTitle);
-
       let isPostDescription = false;
       if (postDescription.value.trim().length > 0) {
          postDescriptionErr.classList.add("hidden");
@@ -32,7 +34,7 @@ if (createPostFrom) {
       console.log(isPostDescription);
 
       let isPostFromValid = isPostTitle && isPostDescription;
-      console.log(isPostFromValid);
+      console.log("From is valid",isPostFromValid);
 
       if (isPostFromValid) {
          const dataPost = {
@@ -59,16 +61,14 @@ if (createPostFrom) {
             if(response.ok){
                 const data = await response.json();
                 console.log(data); 
+                console.log("post created");
                 checked.classList.remove("hidden")               
             }else{
+               checked.classList.add("hidden")
                 const err = await response.json();
                     console.log(err);
-                    checked.classList.add("hidden")
                     throw new Error("hidden",checked) 
             }
-        
-            createPostFrom.reset();
-            checked.reset();
          })().catch(e => {
             console.log(e);
          })
