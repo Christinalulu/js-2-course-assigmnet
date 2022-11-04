@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" href="./asset/icon/chat-svgrepo-com.svg" />
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+      <script type="module" src="/js/main.js" defer></script>
+      <script type="module" src="/js/edit_post.js" defer></script>
+
+      <title>Chat & Connect</title>
+   </head>
+   <body>
+      <header
+      class="flex text-sm bg-gradient-to-r from-orange-100 via-orange-400 to-red-900 p-4">
+      <h1 class="text-lg p-4 uppercase">chat & Connect</h1>
+      <div id="nav-bar" class="flex m-auto">
+        
+      </div>
+   </header>
+
+      <section class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+         <div class="mx-auto max-w-lg text-center">
+            <h1 class="text-2xl font-bold sm:text-3xl">Edit old Post</h1>
+         </div>
+         <form id="edit_form" class="mx-auto mt-8 mb-0 max-w-md space-y-4">
+            <div>
+               <div class="relative">
+                  <label for="postTitle" class="text-sm">Post Title </label>
+                  <input
+                     id="postTitle"
+                     name="postTitle"
+                     type="text"
+                     class="w-full rounded-lg outline-none border-gray-200 p-4 pr-12 text-sm shadow-lg" />
+                  <span
+                     id="post_title_error"
+                     class="hidden text-sm text-red-500">
+                     Post Title is required
+                  </span>
+               </div>
+            </div>
+            <div>
+               <label for="post_description" class="text-sm">Description</label>
+               <div class="relative">
+                  <textarea
+                     name="post_description"
+                     id="post_description"
+                     rows="3"
+                     class="block outline-none w-full resize-none border-0 placeholder-gray-400 focus:ring-0 sm:text-sm p-2 rounded-md shadow-lg"></textarea>
+               </div>
+               <span
+                  id="post_description_error"
+                  class="hidden text-sm text-red-500">
+                  Post Description is required
+               </span>
+            </div>
+            <div class="flex items-center justify-between">
+               <button
+                  type="submit"
+                  class="ml-3 rounded-lg bg-orange-500 px-5 py-3 text-sm font-medium text-white">
+                  Publish
+               </button>
+            </div>
+         </form>
+		 <div class=" flex mx-auto justify-center ">
+			<img id="ok" class="hidden" src="/asset/icon/ok-svgrepo-com.svg" alt="check ok">
+		</div>
+      </section>
+
+   </body>
+   </html>

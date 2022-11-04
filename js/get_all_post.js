@@ -2,15 +2,15 @@ import { getToken } from "./utils/storage";
 import { GET_ALL_POST } from "./setting/api";
 import moment from "moment";
 
-
 const allPOstContainer = document.querySelector("#all-post_container");
 console.log(allPOstContainer);
-
 const accessToken = getToken();
+if(!accessToken){
+    location.href = "/login.html"
+}
 
 
 (async function getAllPosts(){
-
    const response = await fetch(GET_ALL_POST,{
         method: "GET",
         headers: {
@@ -22,14 +22,11 @@ const accessToken = getToken();
    
     if(response.ok){
         const post = await response.json();
-        console.log(post);
-
+        console.log("All posts",post);
+        console.log(post.map);
        const listPostItems = post.map((post)=>{
-        
         const {id, title, body, created, media} = post
         const createdWhen = moment(created).fromNow();
-       
-    
         return(`
         <li class="p-4 md:w-1/3">
             <div
@@ -54,8 +51,8 @@ const accessToken = getToken();
                        ${body}
                     </p>
                     <div class="flex items-center flex-wrap">
-                        <a
-                            class="text-orange-500 inline-flex items-center md:mb-2 lg:mb-0"
+                        <a href="/details-post.html?post_id=${id}"
+                            class="text-orange-500 inline-flex items-center md:mb-2 lg:mb-0 hover:text-red-800 hover:animate-pulse"
                             >Go to site
                             <svg
                                 class="w-4 h-4 ml-2"
@@ -105,15 +102,17 @@ const accessToken = getToken();
                 </div>
             </div>
         </li> 
-        `)
+        `
+        )
        }).join("")
-       console.log(listPostItems);
        allPOstContainer.insertAdjacentHTML("beforeend",listPostItems )
     }else{
         const err = await response.json()
+        console.log("somer Error happened",err);
         throw new Error(err)
     }
 })().catch(e => {
     console.log(e);
     console.log("ALL POST FAILED");
 })
+
