@@ -67,7 +67,7 @@ if (createPostFrom) {
                checked.classList.add("hidden")
                 const err = await response.json();
                     console.log(err);
-                    throw new Error("hidden",checked) 
+                    throw new Error(err) 
             }
          })().catch(e => {
             console.log(e);

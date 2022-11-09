@@ -89,12 +89,12 @@ editPostFrom.addEventListener("submit", function (event) {
              console.log(data); 
              console.log("post created");
             
-               location.href = `profile.html?post_id=${postId}`
+               location.href = `details-post.html?post_id=${postId}`
          }else{
            
              const err = await response.json();
                  console.log(err);
-                 throw new Error("hidden",checked) 
+                 throw new Error(err) 
          }
       })().catch(e => {
          console.log(e);
